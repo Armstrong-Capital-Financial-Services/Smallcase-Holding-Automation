@@ -105,14 +105,21 @@ def fetch_data(user_input):
         driver.quit()
 
 def process_list(input_list):
-    results = []
+    results_dict = {}
     for user_input in input_list:
         sectordf, stockdf = fetch_data(user_input)
         if sectordf is not None and stockdf is not None:
-            results.append((sectordf, stockdf))
-    return results
+            results_dict[user_input] = {"sector_data": sectordf, "stock_data": stockdf}
+    return results_dict
 
 input_list = ["Gulaq Gear 4 Quant", "Gulaq Gear 5 Quant", "Gulaq Gear 6 Quant"]
-results = process_list(input_list)
-for sectordf, stockdf in results:
-    st.write(sectordf, stockdf)
+# Store results in a dictionary
+results_dict = process_list(input_list)
+
+# Display results in Streamlit
+for key, value in results_dict.items():
+    st.write(f"**{key}**")
+    st.write("**Sector Data:**")
+    st.write(value["sector_data"])
+    st.write("**Stock Data:**")
+    st.write(value["stock_data"])

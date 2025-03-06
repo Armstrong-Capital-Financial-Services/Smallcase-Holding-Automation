@@ -115,4 +115,4 @@ def process_list(input_list):
 input_list = ["Gulaq Gear 4 Quant", "Gulaq Gear 5 Quant", "Gulaq Gear 6 Quant"]
 results = process_list(input_list)
 for sectordf, stockdf in results:
-    st.dataframe(sectordf, stockdf)
+    st.write(sectordf, stockdf)

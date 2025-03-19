@@ -112,7 +112,8 @@ def process_list(input_list):
             results_dict[user_input] = {"sector_data": sectordf, "stock_data": stockdf}
     return results_dict
 
-input_list = ["Gulaq Gear 4 Quant", "Gulaq Gear 5 Quant", "Gulaq Gear 6 Quant","Wright Smallcaps Tracker","Wright New India Manufacturing Theme","Wright Momentum Model","Wright Innovation Tracker","Trends Trilogy Fundamental","Niveshaay Consumer Trends Portfolio Theme","Mid & Small Cap Focus","Mid and Small Cap Focused Portfolio Fundamental","Marcellus MeritorQ- Fixed Fee plan Quant","Make In India Theme","Large & Mid Cap Diversified","Indian Bluechip Leaders","Green Energy Theme","Balanced Multi Factor Model","Alpha Prime Momentum Model"]
+input_list = ["Gulaq Gear 4 Quant", "Gulaq Gear 5 Quant", "Gulaq Gear 6 Quant","Wright Smallcaps Tracker","Wright New India Manufacturing Theme","Wright Momentum Model","Wright Innovation Tracker"]
+              #"Trends Trilogy Fundamental","Niveshaay Consumer Trends Portfolio Theme","Mid & Small Cap Focus","Mid and Small Cap Focused Portfolio Fundamental","Marcellus MeritorQ- Fixed Fee plan Quant","Make In India Theme","Large & Mid Cap Diversified","Indian Bluechip Leaders","Green Energy Theme","Balanced Multi Factor Model","Alpha Prime Momentum Model"]
 # Store results in a dictionary
 results_dict = process_list(input_list)
 

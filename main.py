@@ -123,3 +123,56 @@ for key, value in results_dict.items():
     st.write(value["sector_data"])
     st.write("**Stock Data:**")
     st.write(value["stock_data"])
+
+import psycopg2
+import pandas as pd
+
+db_config = st.secrets["database"]
+
+# Connect to Supabase PostgreSQL
+def connect_db():
+    return psycopg2.connect(
+        dbname=db_config["dbname"],
+        user=db_config["user"],
+        password=db_config["password"],
+        host=db_config["host"],
+        port=db_config["port"]
+    )
+    
+# Function to insert stock data into Supabase
+def insert_stock_data(results_dict):
+    conn = connect_db()
+    cursor = conn.cursor()
+
+    for key, data in results_dict.items():
+        stock_table = f"{key.replace(' ', '_').lower()}_stock"
+
+        # Ensure stock_data exists and is not empty
+        if "stock_data" in data and not data["stock_data"].empty:
+            stock_df = data["stock_data"]
+
+            # Create table if it doesn't exist
+            cursor.execute(f"""
+                CREATE TABLE IF NOT EXISTS {stock_table} (
+                    id SERIAL PRIMARY KEY,
+                    STOCK TEXT,
+                    SK_ALLOCATION TEXT
+                );
+            """)
+            conn.commit()
+
+            # Insert stock data into the table
+            for _, row in stock_df.iterrows():
+                cursor.execute(f"""
+                    INSERT INTO {stock_table} (STOCK, SK_ALLOCATION)
+                    VALUES (%s, %s);
+                """, (row["STOCK"], row["SK_ALLOCATION"]))
+
+            conn.commit()
+
+    cursor.close()
+    conn.close()
+
+# Call the function to insert data
+insert_stock_data(results_dict)
+

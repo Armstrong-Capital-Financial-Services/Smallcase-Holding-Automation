@@ -129,7 +129,7 @@ import pandas as pd
 
 db_config = st.secrets["database"]
 def format_table_name(name):
-    formatted_name = name.lower().replace("&", "and").replace(" ", "_")
+    formatted_name = name.lower().replace("&", "and").replace(" ", "_").replace("-","_")
     return formatted_name + "_portfolio"
     
 # Connect to Supabase PostgreSQL

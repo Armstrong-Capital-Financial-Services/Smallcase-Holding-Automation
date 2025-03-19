@@ -128,7 +128,10 @@ import psycopg2
 import pandas as pd
 
 db_config = st.secrets["database"]
-
+def format_table_name(name):
+    formatted_name = name.lower().replace("&", "and").replace(" ", "_")
+    return formatted_name + "_portfolio"
+    
 # Connect to Supabase PostgreSQL
 def connect_db():
     return psycopg2.connect(
@@ -145,7 +148,7 @@ def insert_stock_data(results_dict):
     cursor = conn.cursor()
 
     for key, data in results_dict.items():
-        stock_table = f"{key.replace(' ', '_').lower()}_stock"
+        stock_table = format_table_name(key)
 
         # Ensure stock_data exists and is not empty
         if "stock_data" in data and not data["stock_data"].empty:
